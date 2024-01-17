@@ -36,7 +36,7 @@
 // Theme-global parameters: For changing the look of all widgets drawn with a
 // particular theme, adjust the `Theme` fields:
 //
-//	theme.Color.Primary = color.NRGBA{...}
+//	theme.Palette.Fg = color.NRGBA{...}
 //
 // Widget-local parameters: For changing the look of a particular widget,
 // adjust the widget specific theme object:
@@ -49,7 +49,7 @@
 // though the underlying state is the same. A widget.Clickable can be drawn as a
 // round icon button:
 //
-//	icon := material.NewIcon(...)
+//	icon := widget.NewIcon(...)
 //
 //	material.IconButton(theme, icon).Layout(gtx, button)
 //
