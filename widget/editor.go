@@ -247,10 +247,7 @@ func (e *Editor) processPointer(gtx layout.Context) {
 					Y: int(math.Round(float64(evt.Position.Y))),
 				})
 
-				if !e.ReadOnly {
-					e.requestFocus = true
-				}
-
+				e.requestFocus = true
 				if e.scroller.State() != gesture.StateFlinging {
 					e.scrollCaret = true
 				}
@@ -652,7 +649,11 @@ func (e *Editor) layout(gtx layout.Context, textMaterial, selectMaterial op.Call
 	key.InputOp{Tag: &e.eventKey, Hint: e.InputHint, Keys: keys}.Add(gtx.Ops)
 	if e.requestFocus {
 		key.FocusOp{Tag: &e.eventKey}.Add(gtx.Ops)
-		key.SoftKeyboardOp{Show: true}.Add(gtx.Ops)
+		// Use requestFocus in readOnly mode to use text selection
+		// but don't display soft keyboard on click
+		if !e.ReadOnly {
+			key.SoftKeyboardOp{Show: true}.Add(gtx.Ops)
+		}
 	}
 	e.requestFocus = false
 
